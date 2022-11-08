@@ -1,21 +1,21 @@
-import { useState, useEffect } from 'react'
-
+import { useContext } from 'react'
 import TaskItem from './TaskItem'
+import AddTaskForm from './AddTaskForm'
+import TaskContext from '../context/TaskContext'
 
 function TaskList() {
-  const newTasks = [
-    { task: 'first task' },
-    { task: 'second task' },
-    { task: 'third task' },
-  ]
-  const [tasks, setTasks] = useState(newTasks)
-
+  const { tasks } = useContext(TaskContext)
   return (
     <>
-      <div className='container'>
-        {tasks.map((task, index) => (
-          <TaskItem key={index} task={task} id={index + 1} />
-        ))}
+      <AddTaskForm />
+      <div className='container space-y-5'>
+        {!tasks || tasks.length === 0 ? (
+          <p className='text-center'>No Tasks Yet</p>
+        ) : (
+          tasks.map((task, index) => (
+            <TaskItem key={task.id} task={task} index={index} />
+          ))
+        )}
       </div>
     </>
   )
