@@ -9,8 +9,13 @@ function TaskItem({ task, index }) {
   const crossBarRef = useRef(null)
 
   useEffect(() => {
-    crossBarRef.current.classList.toggle('hidden')
-    crossBarRef.current.classList.toggle('flex')
+    if (isCompleted) {
+      crossBarRef.current.classList.remove('hidden')
+      crossBarRef.current.classList.add('flex')
+    } else if (!isCompleted) {
+      crossBarRef.current.classList.remove('flex')
+      crossBarRef.current.classList.add('hidden')
+    }
   }, [isCompleted])
 
   useEffect(() => {
